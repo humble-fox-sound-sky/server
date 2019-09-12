@@ -3,7 +3,7 @@
 const { OAuth2Client } = require('google-auth-library')
 const { generateToken } = require('../helpers/jwt')
 const { checkPassword } = require('../helpers/bcryptjs')
-const { User } = require('../models')
+// const { User } = require('../models')
 
 class UserController {
   static findAll (req, res, next) {
