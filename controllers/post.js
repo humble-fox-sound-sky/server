@@ -5,7 +5,7 @@ const postModel = require('../model/post.js')
 class postController {
 
     static create(req, res, next) {
-
+        const music = req.file ? req.file.cloudStoragePublicUrl : ''
         const {
             name,
             description,
@@ -15,7 +15,7 @@ class postController {
         let obj = {
             name,
             description,
-            url
+            url : music
         }
 
         postModel.create(obj)

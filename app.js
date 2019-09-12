@@ -1,15 +1,15 @@
-if (process.env.NODE_ENV == 'development') {
+
+if(!process.env.NODE_ENV || process.env.NODE_ENV == 'development'){
   require('dotenv').config()
 }
-
 const express = require('express');
 const app = express();
 const port = 3000;
 
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/skySound', {
-  useNewUrlParser: true
+mongoose.connect('mongodb://localhost:27017/sound-sky-humble', {useNewUrlParser: true},()=>{
+    console.log('mongodb is connected');
 });
 
 const cors = require('cors')
@@ -22,8 +22,9 @@ app.use(express.urlencoded({
 }))
 
 const post = require('./routes/post')
+const errorHandler = require('./middlewares/errHandler')
 
-app.use('/', post)
-app.use('./middlewares/errHandler.js')
+app.use('/post', post)
+app.use(errorHandler)
 
 app.listen(port, () => console.log(`Example app listening on port port`))
