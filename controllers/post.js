@@ -29,7 +29,7 @@ class postController {
 
     static findAll(req, res, next) {
 
-        postModel.find()
+        postModel.find().sort({createdAt : -1})
             .then(data => {
                 res.status(201).json({
                     data

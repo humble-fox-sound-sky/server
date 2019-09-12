@@ -4,11 +4,11 @@ const Schema = mongoose.Schema
 let postSchema = new Schema({
     name: {
         type: String,
-        required: [true, 'Sorry Name Required']
+        // required: [true, 'Sorry Name Required']
     },
     description: {
         type: String,
-        required: [true, 'Sorry Description Required']
+        // required: [true, 'Sorry Description Required']
     },
     url: {
         type: String,

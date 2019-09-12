@@ -8,7 +8,7 @@ const port = 3000;
 
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/sound-sky-humble', {useNewUrlParser: true},()=>{
+mongoose.connect('mongodb://localhost:27017/sound-sky-humble', {useNewUrlParser: true , useUnifiedTopology: true },()=>{
     console.log('mongodb is connected');
 });
 
