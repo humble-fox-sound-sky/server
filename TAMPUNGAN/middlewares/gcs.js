@@ -1,7 +1,7 @@
 const { Storage } = require('@google-cloud/storage')
-
+const fileType = require('file-type');
 const CLOUD_BUCKET = process.env.CLOUD_BUCKET
-
+const accepted_extensions = ['mp3', 'mp4'];
 const storage = new Storage({
     projectId: process.env.GCLOUD_PROJECT,
     keyFilename: process.env.KEYFILE_PATH
@@ -46,12 +46,33 @@ const Multer = require('multer'),
         storage: Multer.MemoryStorage,
         limits: {
             fileSize: 5 * 1024 * 1024
+        },
+        fileFilter : (req,file, cb)=>{
+            // if(acceep)
+            if (accepted_extensions.some(ext => file.originalname.endsWith("." + ext))) {
+                return cb(null, true);
+            }
+
+            return cb(new Error('Only ' + accepted_extensions.join(", ") + ' files are allowed!'));
         }
         // dest: '../images'
 })
 
+function validate_format(req, res, next) {
+    // For MemoryStorage, validate the format using `req.file.buffer`
+    // For DiskStorage, validate the format using `fs.readFile(req.file.path)` from Node.js File System Module
+    let mime = fileType(req.file.buffer);
+
+    // if can't be determined or format not accepted
+    if(!mime || !accepted_extensions.includes(mime.ext))
+        return next(new Error('The uploaded file is not in ' + accepted_extensions.join(", ") + ' format!'));
+    
+    next();
+}
+
 module.exports = {
     getPublicUrl,
     sendUploadToGCS,
-    multer 
+    multer ,
+    validate_format
 }
