@@ -24,6 +24,6 @@ app.use(express.urlencoded({
 const post = require('./routes/post')
 
 app.use('/', post)
-
+app.use('./middlewares/errHandler.js')
 
 app.listen(port, () => console.log(`Example app listening on port port`))
