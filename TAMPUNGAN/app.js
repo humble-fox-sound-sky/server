@@ -2,8 +2,8 @@
 'use strict'
 
 
-if(!process.env.NODE_ENV || process.env.NODE_ENV == 'development'){
-   require('dotenv').config()
+if (!process.env.NODE_ENV || process.env.NODE_ENV == 'development') {
+    require('dotenv').config()
 }
 
 // Modules
@@ -15,11 +15,6 @@ const mongoose = require('mongoose')
 
 const app = express()
 const PORT = process.env.PORT || 3000
-
-// Connection to MongoDB via mongoose
-mongoose.connect('mongodb://localhost:27017/sound-sky-humble', {useNewUrlParser: true},()=>{
-    console.log('mongodb is connected');
-});
 
 // Initial middlewares
 app.use(express.json())
@@ -36,4 +31,3 @@ app.use(errorHandler)
 
 // Start the server
 app.listen(PORT, () => console.log(`App listening on port ${PORT}`))
-
